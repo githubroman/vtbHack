@@ -7,24 +7,52 @@ import {
   TextInput,
 } from 'react-native';
 
+import { checkTestInvoice, getInvoice, createTestInvoice, getAccountInfo, createSession } from '../actions.js';
+import { classBody } from '@babel/types';
+
 export function IdentifierForm(props) {
 
-  const [text, onChangeText] = useState('enter identifier');
+  const [text, onChangeText] = useState('Введите идентификатор ВТБ кошелька');
 
   const onPressButton = () => {
-    setText('update identifier');
+    console.log("press button...");
+    createSession((err, session) => {
+      console.log("checking...");
+      if (err)
+        return console.log(err);
+      console.log(text);
+      getAccountInfo(session, text, (err, account) => {
+        createTestInvoice(session, account.address, (err, res) => {
+          checkTestInvoice(session, account.address, (err, status) => {
+            console.log(err, status);
+            console.log("status accept...");
+            console.log(props.cb);
+            props.cb.navigate('Links');
+            // setCheckin(false);
+          })
+        })
+      })
+    });
   };
 
+  // console.log("IdentifierForm");
+  // console.log(props.cb);
+
   return (
+    
     <View style={styles.view}>
       <Text style={styles.headerText}>ID</Text>
-      <TextInput {...props} style={styles.identifierText} onChangeText={text => onChangeText(text)} text={text} placeholder='enter identifier'/>
-      <Button style={styles.okButton} title='OK' onPress={onPressButton}/>
+      <TextInput {...props} style={styles.identifierText} onChangeText={text => onChangeText(text)} text={text} placeholder='Введите идентификатор ВТБ кошелька'/>
+      <View style={styles.okButton}>
+          <Button 
+            onPress={onPressButton}
+            title="OK"
+            color="#5759FF"
+          />
+        </View> 
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   view: {
@@ -38,31 +66,27 @@ const styles = StyleSheet.create({
   headerText: {
     alignContent: 'flex-start',
     alignSelf:'flex-start',
-    marginLeft: 16,
-    borderColor: 'red',
-    // backgroundColor: 'transparent',
-    borderWidth: 1, 
-    borderRadius: 3,
+    marginLeft: 20,
   },
   identifierText: {
-    width: '100%',
+    alignSelf: 'stretch',
     backgroundColor: '#fff',
     color: 'red',
     borderColor: 'green',
     backgroundColor: 'transparent',
-    borderWidth: 1, 
-    borderRadius: 3,
     borderStyle: 'solid',
-    fontFamily: 'space-mono',
+    // fontFamily: 'space-mono',
     fontSize: 14,
-    // borderBottomWidth: ,
+    borderBottomWidth: 1,
     height: 20,
-    paddingLeft: 16,
+    margin: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    textDecorationLine: 'none',
   },
   okButton: {
-    fontSize: 14,
-    width: 50,
-    height: 50,
-    // textAlign: 'center',
+    width: '50%', 
+    color: '#5759FF',
+    margin: 10,
   },
 });

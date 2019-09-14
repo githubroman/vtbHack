@@ -1,6 +1,7 @@
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
+import Constants from 'expo-constants';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,6 +26,7 @@ function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        <View style={{ paddingTop: Constants.statusBarHeight, backgroundColor: 'red' }}></View>
         <AppNavigator />
       </View>
     );

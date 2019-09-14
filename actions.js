@@ -144,5 +144,17 @@ export const checkTestInvoice = (session, payer, cb) => {
     cb(null, true);
 }
 
-
+export const createEvent = (_id, place, products, cb) => {
+  if (!Meteor.collection('events').find({ _id }).length)
+    Meteor.call('events.addOne', {
+      _id,
+      place,
+      products,
+      createdAt: new Date(),
+    }, (err, _id) => {
+      cb(err, _id);
+    });
+  else
+    cb(null, _id)
+}
 

@@ -1,10 +1,12 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text, StyleSheet, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import EventsScreen from '../screens/EventsScreen';
+import AddEventScreen from '../screens/AddEventScreen';
+import EventScreen from '../screens/EventScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -35,21 +37,36 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const Header = (props) => {
+  return (
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerText}>{ props.title }</Text>
+    </View>
+  )
+}
+
+const EventsStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Events: EventsScreen,
+    AddEvent: AddEventScreen,
+    Event: EventScreen,
   },
-  config
+  {
+    initialRouteName: 'Events',
+    defaultNavigationOptions: {
+      header: <Header title="События"/>
+    },
+  }
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+EventsStack.navigationOptions = {
+  tabBarLabel: 'Events',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
 };
 
-LinksStack.path = '';
+EventsStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -69,10 +86,25 @@ SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
+  EventsStack,
   SettingsStack,
 });
 
 tabNavigator.path = '';
 
-export default tabNavigator;
+const styles = StyleSheet.create({
+  headerContainer: {
+    backgroundColor: '#5759FF',
+    height: 56,
+    padding: 14,
+    justifyContent: 'center'
+  },
+  headerText: {
+    fontSize: 20,
+    lineHeight: 28,
+    color: '#FFFFFF',
+    fontWeight: 'normal'
+  }
+});
+
+export default EventsStack;

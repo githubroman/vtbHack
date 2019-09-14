@@ -13,34 +13,33 @@ import {
 
 import { MonoText } from '../components/StyledText';
 
-// class Simple extends React.Component {
-//   _renderItem = (data, i) => (
-//     <View style={[{ backgroundColor: data }, styles.item]} key={i} />
-//   );
- 
-//   _renderPlaceholder = i => <View style={styles.item} key={i} />;
- 
-//   render() {
-//     return (
-//       <Grid
-//         style={styles.list}
-//         renderItem={this._renderItem}
-//         renderPlaceholder={this._renderPlaceholder}
-//         data={['black', 'white', 'red', 'green', 'blue']}
-//         numColumns={2}
-//       />
-//     );
-//   }
-// }
+import { checkTestInvoice, getInvoice, createTestInvoice, getAccountInfo, createSession } from '../actions.js';
+
+// setTimeout(() => {
+//   createSession((err, session) => {
+//     if (err)
+//       return console.log(err);
+
+//     getAccountInfo(session, 'chizhikov', (err, account) => {
+//       createTestInvoice(session, account.address, (err, res) => {
+//         checkTestInvoice(session, account.address, (err, status) => {
+//           console.log(err, status)
+//         })
+
+//         // getInvoice(session, 810)
+
+//       })
+//     })
+//   })
+// }, 1000)
 
 export default function HomeScreen() {
+  
   return (
     <View style={styles.container}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
-
-        <Simple />
 
         <View style={styles.welcomeContainer}>
           <Image
@@ -137,14 +136,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  // item: {
-  //   flex: 1,
-  //   height: 160,
-  //   margin: 1
-  // },
-  // list: {
-  //   flex: 1
-  // },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',

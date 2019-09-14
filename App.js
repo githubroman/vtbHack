@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import AppNavigator from './navigation/AppNavigator';
 import Meteor, { withTracker } from 'react-native-meteor';
-const SERVER_URL = 'ws://9cfb7450.ngrok.io/websocket';
+const SERVER_URL = 'ws://10.0.0.37:3000/websocket';
 Meteor.connect(SERVER_URL);
 
 function App(props) {
@@ -31,11 +31,13 @@ function App(props) {
   }
 }
 
-export default withTracker(params => {
-  return {
-    links: Meteor.collection('links').find(),
-  };
-})(App);
+export default App;
+
+// export default withTracker(params => {
+//   return {
+//     links: Meteor.collection('links').find(),
+//   };
+// })(App);
 
 async function loadResourcesAsync() {
   await Promise.all([

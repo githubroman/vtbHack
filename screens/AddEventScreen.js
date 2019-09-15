@@ -13,7 +13,7 @@ export default function AddEventScreen(props) {
     if (type === BarCodeScanner.Constants.BarCodeType.qr) {
       setScanned(true);
       const json = JSON.parse(data);
-      createEvent(json.id, json.place, json.products, (err, _id) => {
+      createEvent(json.id, json.place, json.products, json.img, (err, _id) => {
         props.navigation.navigate('Event', { _id })
       })
     }

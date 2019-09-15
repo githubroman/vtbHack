@@ -96,11 +96,16 @@ const EventScreen = function EventsScreen(props) {
     getAccountInfo(session, peopleId, (err, account) => {
       if (err)
         return console.log(err) || setPayEnable(false);
-      console.log(account.address, props.event.owner)
-      if (account.address !== props.event.owner)
-        setPayEnable(true);
-      else
-        setPayEnable(false);
+
+      getAccountInfo(session, props.event.owner, (err, ownerAccount) => {
+        if (err)
+          return console.log(err) || setPayEnable(false);
+
+        if (props.event && account.address !== ownerAccount.address)
+          setPayEnable(true);
+        else
+          setPayEnable(false);
+      })
     })
   });
 
@@ -115,16 +120,21 @@ const EventScreen = function EventsScreen(props) {
         if (err)
           return console.log(err) || setActivity(false);
       
-        createPaymentInvoice(session, amount, { id: props.event.owner, address: props.event.owner }, account.address, (err, data) => {
-          setActivity(false);
-          Alert.alert(
-            'Внимание',
-            'Произведите оплату через кошелек ВТБ',
-            [
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-          );
+        getAccountInfo(session, props.event.owner, (err, ownerAccount) => {
+          if (err)
+            return console.log(err) || setActivity(false);
+
+          createPaymentInvoice(session, amount, { id: props.event.owner, address: ownerAccount.address }, ownerAccount.address, (err, data) => {
+            setActivity(false);
+            Alert.alert(
+              'Внимание',
+              'Произведите оплату через кошелек ВТБ',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+              {cancelable: false},
+            );
+          })
         })
       })
     })

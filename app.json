@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "VTB",
+    "name": "Friend Check",
     "slug": "vtbHack",
     "privacy": "public",
     "sdkVersion": "34.0.0",
@@ -27,7 +27,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.friendcheck.v1"
+      "package": "com.friendcheck.v2"
     }
   }
 }

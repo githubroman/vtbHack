@@ -171,7 +171,6 @@ export const createPaymentInvoice = (session, amount, owner, payer, cb) => {
     return cb(new Error('Backend is disconnected'));
 
   const currentCode = 810;
-
   createInvoice(session, amount, currentCode, `Payment ${amount} rubles to ${owner.id} `, 'Please pay invoice', payer, owner.address, (err, invoice) => {
     if (err)
       return cb(err);
@@ -194,13 +193,14 @@ export const createPaymentInvoice = (session, amount, owner, payer, cb) => {
     });
   });
 }
-export const createEvent = (_id, place, products, cb) => {
+export const createEvent = (_id, place, products, img, cb) => {
   if (!Meteor.collection('events').find({ _id }).length)
     Meteor.call('events.addOne', {
       _id,
       owner: getUserId(),
       place,
       products,
+      img,
       createdAt: new Date(),
     }, (err, _id) => {
       cb(err, _id);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Meteor, { withTracker } from 'react-native-meteor';
+import { getUserId } from '../actions.js';
 
 
 const People = (props) => {
@@ -62,11 +63,11 @@ const Product = (props) => {
         {props.peoples && props.peoples.map((people, i) => <People key={i} {...people} />)}
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => removePeople(props.index, 'asd')} style={{ height: 22, width: 22, borderRadius: 2, margin: 5, borderColor: '#EB5353', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <TouchableOpacity onPress={() => removePeople(props.index, getUserId())} style={{ height: 22, width: 22, borderRadius: 2, margin: 5, borderColor: '#EB5353', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{color: '#EB5353'}}>-</Text>
         </TouchableOpacity>
-        <Text style={{color: '#304547', fontSize: 16, lineHeight: 19}}>0</Text>
-        <TouchableOpacity onPress={() => addPeople(props.index, 'asd')} style={{ height: 22, width: 22, borderRadius: 2, margin: 5, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{color: '#304547', fontSize: 16, lineHeight: 19}}>{props.peoples ? props.peoples.length : 0}</Text>
+        <TouchableOpacity onPress={() => addPeople(props.index, getUserId())} style={{ height: 22, width: 22, borderRadius: 2, margin: 5, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{color: '#25AA42'}}>+</Text>
         </TouchableOpacity>
       </View>
@@ -76,10 +77,25 @@ const Product = (props) => {
 
 
 const EventScreen = function EventsScreen(props) {
+  const peopleId = getUserId();
+  const total = props.event && props.event.products.reduce((acc, cur) => {
+    if (cur.peoples && cur.peoples.length) {
+      const countP = cur.peoples.filter((people) => people == peopleId).length;
+      return acc + cur.price / cur.peoples.length * countP;
+    }
+    else
+      return acc;
+  }, 0)
+
   return (
-    <ScrollView style={styles.container}>
-      {props.event && props.event.products.map((product, i) => <Product key={i} index={i} event={props.event} products={props.event.products} {...product} />)}
-    </ScrollView>
+    <View style={{flex: 1, justifyContent: 'flex-end'}}>
+      <ScrollView style={styles.container}>
+        {props.event && props.event.products.map((product, i) => <Product key={i} index={i} event={props.event} products={props.event.products} {...product} />)}
+      </ScrollView>
+      <View style={{height: 100, justifyContent: 'center'}}>
+        <Text style={{fontSize: 20, color: '#304547', margin: 10}}>{total} р</Text>
+      </View>
+    </View>
   );
 }
 

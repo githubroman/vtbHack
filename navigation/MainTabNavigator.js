@@ -3,7 +3,7 @@ import { Platform, Text, StyleSheet, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import IdetifierScreen from '../screens/IdetifierScreen';
 import EventsScreen from '../screens/EventsScreen';
 import AddEventScreen from '../screens/AddEventScreen';
 import EventScreen from '../screens/EventScreen';
@@ -13,29 +13,6 @@ const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
-
-const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-  },
-  config
-);
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
-
-HomeStack.path = '';
 
 const Header = (props) => {
   return (
@@ -47,12 +24,13 @@ const Header = (props) => {
 
 const EventsStack = createStackNavigator(
   {
+    Idetifier: IdetifierScreen,
     Events: EventsScreen,
     AddEvent: AddEventScreen,
     Event: EventScreen,
   },
   {
-    initialRouteName: 'Events',
+    initialRouteName: 'Idetifier',
     defaultNavigationOptions: {
       header: <Header title="События"/>
     },
@@ -85,7 +63,6 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
   EventsStack,
   SettingsStack,
 });

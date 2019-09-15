@@ -7,7 +7,7 @@ import {
   TextInput,
 } from 'react-native';
 
-import { checkTestInvoice, getInvoice, createTestInvoice, getAccountInfo, createSession } from '../actions.js';
+import { checkTestInvoice, getInvoice, createTestInvoice, getAccountInfo, createSession, setUserId } from '../actions.js';
 import { classBody } from '@babel/types';
 
 export function IdentifierForm(props) {
@@ -27,7 +27,8 @@ export function IdentifierForm(props) {
             console.log(err, status);
             console.log("status accept...");
             console.log(props.cb);
-            props.cb.navigate('Links');
+            setUserId(account.address);
+            props.cb.navigate('Events');
             // setCheckin(false);
           })
         })

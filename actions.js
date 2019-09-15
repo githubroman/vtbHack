@@ -8,6 +8,14 @@ import Meteor, { withTracker } from 'react-native-meteor';
 const apiUrl = 'http://89.208.84.235:31080';
 const baseRecipientAddress = '605ae7d65981c8df1c53895f56a21dc4b5eb4ec8';
 
+let userId = '';
+export const setUserId = (id) => {
+  userId = id;
+}
+export const getUserId = () => {
+  return userId;
+}
+
 export const createSession = (cb) => {
   axios({
     method: 'POST',

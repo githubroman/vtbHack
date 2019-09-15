@@ -6,7 +6,6 @@ import { LoginForm } from '../components/LoginForm';
 import { checkTestInvoice, getInvoice, createTestInvoice, getAccountInfo, createSession } from '../actions.js';
 
 export default function IdetifierScreen(props) {
-
   const [checkin, setCheckin] = useState(false);
 
   checkLogin = () => {
@@ -15,7 +14,7 @@ export default function IdetifierScreen(props) {
         if (err)
           return console.log(err);
 
-    getAccountInfo(session, 'asd', (err, account) => {
+    getAccountInfo(session, 'chizhikov', (err, account) => {
       if (account){
       createTestInvoice(session, account.address, (err, res) => {
         checkTestInvoice(session, account.address, (err, status) => {
@@ -40,7 +39,7 @@ export default function IdetifierScreen(props) {
     }, 1000);
 
     const goLinksScreen = () => {
-      props.navigation.navigate('Links');
+      props.navigation.navigate('Events');
     };
 
   return (

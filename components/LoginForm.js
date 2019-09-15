@@ -19,11 +19,6 @@ export function LoginForm(props) {
 
   return (
     <View style={styles.view}>
-        <View style={styles.header}>
-            <Text style={styles.headerText}>
-                TITLE
-            </Text>
-        </View>
         <View style={styles.welcomeImageView}>
           <Image
             source={require('../assets/images/login2.png')}

@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import AppNavigator from './navigation/AppNavigator';
 import Meteor, { withTracker } from 'react-native-meteor';
-const SERVER_URL = 'ws://10.0.0.37:3000/websocket';
+const SERVER_URL = 'ws://192.168.43.119:3000/websocket';
 Meteor.connect(SERVER_URL);
 
 function App(props) {

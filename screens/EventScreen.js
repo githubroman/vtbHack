@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import Meteor, { withTracker } from 'react-native-meteor';
-import { getUserId, createInvoice, createSession, getAccountInfo } from '../actions.js';
+import { getUserId, createPaymentInvoice, createSession, getAccountInfo, getAccountInfoByAddress } from '../actions.js';
 
 
 const People = (props) => {
@@ -78,6 +78,7 @@ const Product = (props) => {
 
 const EventScreen = function EventsScreen(props) {
   const [activity, setActivity] = useState(false);
+  const [payEnable, setPayEnable] = useState(false);
   const peopleId = getUserId();
   const total = props.event && props.event.products.reduce((acc, cur) => {
     if (cur.peoples && cur.peoples.length) {
@@ -88,6 +89,22 @@ const EventScreen = function EventsScreen(props) {
       return acc;
   }, 0)
 
+  createSession((err, session) => {
+    if (err)
+      return console.log(err) || setPayEnable(false);
+    
+    getAccountInfo(session, peopleId, (err, account) => {
+      if (err)
+        return console.log(err) || setPayEnable(false);
+      console.log(account.address, props.event.owner)
+      if (account.address !== props.event.owner)
+        setPayEnable(true);
+      else
+        setPayEnable(false);
+    })
+  });
+
+
   const pay = (amount) => {
     setActivity(true);
     createSession((err, session) => {
@@ -97,8 +114,8 @@ const EventScreen = function EventsScreen(props) {
       getAccountInfo(session, peopleId, (err, account) => {
         if (err)
           return console.log(err) || setActivity(false);
-
-        createInvoice(session, amount, 810, `Payment to ${props.event.owner}`, 'Please pay', account.address, props.event.owner, (err, data) => {
+      
+        createPaymentInvoice(session, amount, { id: props.event.owner, address: props.event.owner }, account.address, (err, data) => {
           setActivity(false);
           Alert.alert(
             'Внимание',
@@ -121,9 +138,15 @@ const EventScreen = function EventsScreen(props) {
       <View style={{height: 80, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderColor: '#5759FF', padding: 20}}>
         <Text style={{fontSize: 20, color: '#304547'}}>{total} р</Text>
 
-        {!activity ? <TouchableOpacity onPress={() => pay(total)} style={{ height: 42, borderRadius: 50, margin: 5, padding: 10, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{color: '#25AA42'}}>Оплатить</Text>
-        </TouchableOpacity> : <ActivityIndicator size="large" color="#0000ff" />}
+        {!activity && payEnable ? 
+          <TouchableOpacity onPress={() => pay(total)} style={{ height: 42, borderRadius: 50, margin: 5, padding: 10, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{color: '#25AA42'}}>Оплатить</Text>
+          </TouchableOpacity> :
+
+          !activity && !payEnable ? <TouchableOpacity onPress={() => props.navigation.navigate('Events')} style={{ height: 42, borderRadius: 50, margin: 5, padding: 10, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{color: '#25AA42'}}>Просмотр операция</Text>
+          </TouchableOpacity> : <ActivityIndicator size="large" color="#0000ff" />
+        }
       </View>
     </View>
   );

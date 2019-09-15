@@ -58,6 +58,19 @@ export const getAccountInfo = (session, identifier, cb) => {
   });
 }
 
+
+export const getAccountInfoByAddress = (session, address, cb) => {
+  axios({
+    url: `${apiUrl}/api/v1/account/${address}`,
+    headers: {'FPSID': session}
+  }).then((response) => response.data).then((account) => {
+    if (account.data)
+      cb(null, account.data);
+    else
+      cb(new Error('Account field is empty'));
+  }).catch((err) => cb(err, null))
+}
+
 export const createInvoice = (session, amount, currencyCode, number, description, payer, recipient, cb) => {
   axios({
     method: 'POST',
@@ -138,7 +151,7 @@ export const checkTestInvoice = (session, payer, cb) => {
       if (err)
         return cb(err);
 
-      if (invoice.state !== 1)
+      if (invoice.state === 5)
         Meteor.call('testInvoices.updateOne', {
           _id: testInvoice._id,
           status: 'completed',
@@ -152,6 +165,35 @@ export const checkTestInvoice = (session, payer, cb) => {
     cb(null, true);
 }
 
+
+export const createPaymentInvoice = (session, amount, owner, payer, cb) => {
+  if (!Meteor.status().connected)
+    return cb(new Error('Backend is disconnected'));
+
+  const currentCode = 810;
+
+  createInvoice(session, amount, currentCode, `Payment ${amount} rubles to ${owner.id} `, 'Please pay invoice', payer, owner.address, (err, invoice) => {
+    if (err)
+      return cb(err);
+
+    const addObj = {
+      payer,
+      currentCode,
+      number: `Payment to ${owner.id}`,
+      recipient: owner.address,
+      status: 'waiting',
+      txId: invoice.txId,
+      createdAt: new Date(),
+    };
+
+    Meteor.call('paymentInvoices.addOne', addObj, (err, _id) => {
+      cb(err, { 
+        _id, 
+        ...addObj
+      });
+    });
+  });
+}
 export const createEvent = (_id, place, products, cb) => {
   if (!Meteor.collection('events').find({ _id }).length)
     Meteor.call('events.addOne', {

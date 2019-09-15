@@ -27,7 +27,6 @@ export function IdentifierForm(props) {
           checkTestInvoice(session, account.address, (err, status) => {
             console.log(err, status);
             console.log("status accept...");
-            console.log(props.cb);
             setUserId(text);
             if (status)
               props.cb.navigate('Events');

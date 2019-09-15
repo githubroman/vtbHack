@@ -45,7 +45,8 @@ export default function IdetifierScreen(props) {
   return (
     <ScrollView style={styles.container}>
 
-      { checkin ? goLinksScreen() : <LoginForm cb={props.navigation}/>}
+      <LoginForm cb={props.navigation}/>
+      {/* { checkin ? goLinksScreen() : <LoginForm cb={props.navigation}/>} */}
 
     </ScrollView>
   );

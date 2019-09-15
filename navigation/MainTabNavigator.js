@@ -7,6 +7,7 @@ import IdetifierScreen from '../screens/IdetifierScreen';
 import EventsScreen from '../screens/EventsScreen';
 import AddEventScreen from '../screens/AddEventScreen';
 import EventScreen from '../screens/EventScreen';
+import HistoryEventScreen from '../screens/HistoryEventScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -28,6 +29,7 @@ const EventsStack = createStackNavigator(
     Events: EventsScreen,
     AddEvent: AddEventScreen,
     Event: EventScreen,
+    HistoryEvent: HistoryEventScreen
   },
   {
     initialRouteName: 'Idetifier',

@@ -6,6 +6,8 @@ import {
   Button,
   TextInput,
   Image,
+  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 
 import { IdentifierForm } from '../components/IdentifierForm';
@@ -20,11 +22,12 @@ export function LoginForm(props) {
   return (
     <View style={styles.view}>
         <View style={styles.welcomeImageView}>
+          <View style={{height: 265, width: 200, flex: 1, alignItems: 'center', marginTop: 30}}>
           <Image
-            source={require('../assets/images/login2.png')}
-            style={styles.welcomeImage}
+            resizeMode="stretch"
+            source={require('../assets/images/login4.png')}
           />
-          <Text style={styles.textUnderImage} > FRIENDCHECK </Text>
+          </View>
         </View>
         <IdentifierForm cb={props.cb}/>
     </View>
@@ -34,13 +37,13 @@ export function LoginForm(props) {
 const styles = StyleSheet.create({
   view: {
     // flex: 1,
+    backgroundColor: '#27A5D9',
     width: '100%',
     height: '100%',
   },
   header: {
     height: 50,
     width: '100%',
-    // marginLeft: 20,
     backgroundColor: '#5759FF',
     color: 'red',
 
@@ -52,14 +55,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   welcomeImageView: {
-    height: 250,
-  },
-  welcomeImage: {
-    // width: '50%',
-    // height: '100%',
-    marginTop: 50,
-    // marginBottom: 50,
-    alignSelf: 'center',
+    justifyContent:'center',
+    alignItems: 'center',
+    height: 300,
   },
   textUnderImage: {
     textAlign: 'center',

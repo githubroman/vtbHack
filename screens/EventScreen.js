@@ -155,9 +155,10 @@ const EventScreen = function EventsScreen(props) {
             <Text style={{color: '#25AA42'}}>Оплатить</Text>
           </TouchableOpacity> :
 
-          !activity && !payEnable ? <TouchableOpacity onPress={() => props.navigation.navigate('HistoryEvent')} style={{ height: 42, borderRadius: 50, margin: 5, padding: 10, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{color: '#25AA42'}}>История Оплаты</Text>
-          </TouchableOpacity> : <ActivityIndicator size="large" color="#0000ff" />
+          // !activity && !payEnable ? <TouchableOpacity onPress={() => props.navigation.navigate('HistoryEvent')} style={{ height: 42, borderRadius: 50, margin: 5, padding: 10, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
+          //   <Text style={{color: '#25AA42'}}>История Оплаты</Text>
+          // </TouchableOpacity> : 
+          <ActivityIndicator size="large" color="#0000ff" />
         }
       </View>
     </View>

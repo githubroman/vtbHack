@@ -80,7 +80,7 @@ const EventScreen = function EventsScreen(props) {
   const [activity, setActivity] = useState(false);
   const [payEnable, setPayEnable] = useState(false);
   const peopleId = getUserId();
-  const total = props.event && props.event.products.reduce((acc, cur) => {
+  let total = props.event && props.event.products.reduce((acc, cur) => {
     if (cur.peoples && cur.peoples.length) {
       const countP = cur.peoples.filter((people) => people == peopleId).length;
       return acc + cur.price / cur.peoples.length * countP;
@@ -88,6 +88,7 @@ const EventScreen = function EventsScreen(props) {
     else
       return acc;
   }, 0)
+  total = Number(total.toFixed(2));
 
   createSession((err, session) => {
     if (err)
@@ -124,7 +125,8 @@ const EventScreen = function EventsScreen(props) {
           if (err)
             return console.log(err) || setActivity(false);
 
-          createPaymentInvoice(session, amount, { id: props.event.owner, address: ownerAccount.address }, ownerAccount.address, (err, data) => {
+          createPaymentInvoice(session, amount, { id: props.event.owner, address: ownerAccount.address }, account.address, (err, data) => {
+            console.log(err, data)
             setActivity(false);
             Alert.alert(
               'Внимание',

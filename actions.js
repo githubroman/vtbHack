@@ -171,14 +171,16 @@ export const createPaymentInvoice = (session, amount, owner, payer, cb) => {
     return cb(new Error('Backend is disconnected'));
 
   const currentCode = 810;
-  createInvoice(session, amount, currentCode, `Payment ${amount} rubles to ${owner.id} `, 'Please pay invoice', payer, owner.address, (err, invoice) => {
+  const randName = `Payment to ${owner.id} ` + Math.random().toString(36).substring(2, 15); 
+  console.log(session, amount, currentCode, randName, 'Please pay invoice', payer, owner.address)
+  createInvoice(session, amount, currentCode, randName, 'Please pay invoice', payer, owner.address, (err, invoice) => {
     if (err)
       return cb(err);
 
     const addObj = {
       payer,
       currentCode,
-      number: `Payment to ${owner.id}`,
+      number: randName,
       recipient: owner.address,
       status: 'waiting',
       txId: invoice.txId,

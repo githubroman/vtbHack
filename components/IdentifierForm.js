@@ -30,7 +30,7 @@ export function IdentifierForm(props) {
             setUserId(text);
             if (status)
               props.cb.navigate('Events');
-            else
+            else if (!err)
               Alert.alert(
                 'Внимание',
                 'Произведите оплату через кошелек ВТБ',

@@ -156,6 +156,7 @@ export const createEvent = (_id, place, products, cb) => {
   if (!Meteor.collection('events').find({ _id }).length)
     Meteor.call('events.addOne', {
       _id,
+      owner: getUserId(),
       place,
       products,
       createdAt: new Date(),

@@ -26,7 +26,7 @@ function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <View style={{ paddingTop: Constants.statusBarHeight, backgroundColor: 'red' }}></View>
+        <View style={{ paddingTop: Constants.statusBarHeight, backgroundColor: '#4040D0' }}></View>
         <AppNavigator />
       </View>
     );

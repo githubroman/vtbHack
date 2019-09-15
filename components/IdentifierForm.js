@@ -5,6 +5,7 @@ import {
   StyleSheet, 
   Button,
   TextInput,
+  Alert
 } from 'react-native';
 
 import { checkTestInvoice, getInvoice, createTestInvoice, getAccountInfo, createSession, setUserId } from '../actions.js';
@@ -27,8 +28,18 @@ export function IdentifierForm(props) {
             console.log(err, status);
             console.log("status accept...");
             console.log(props.cb);
-            setUserId(account.address);
-            props.cb.navigate('Events');
+            setUserId(text);
+            if (status)
+              props.cb.navigate('Events');
+            else
+              Alert.alert(
+                'Внимание',
+                'Произведите оплату через кошелек ВТБ',
+                [
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false},
+              );
             // setCheckin(false);
           })
         })

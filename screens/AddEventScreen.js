@@ -9,6 +9,7 @@ export default function AddEventScreen(props) {
   const [scanned, setScanned] = useState(false);
 
   const handleBarCodeScanned = ({ type, data }) => {
+    console.log(type, data)
     if (type === BarCodeScanner.Constants.BarCodeType.qr) {
       setScanned(true);
       const json = JSON.parse(data);

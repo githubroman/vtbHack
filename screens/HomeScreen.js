@@ -16,21 +16,21 @@ import { MonoText } from '../components/StyledText';
 import { checkTestInvoice, getInvoice, createTestInvoice, getAccountInfo, createSession } from '../actions.js';
 
 // setTimeout(() => {
-//   createSession((err, session) => {
-//     if (err)
-//       return console.log(err);
+  // createSession((err, session) => {
+  //   if (err)
+  //     return console.log(err);
 
-//     getAccountInfo(session, 'chizhikov', (err, account) => {
-//       createTestInvoice(session, account.address, (err, res) => {
-//         checkTestInvoice(session, account.address, (err, status) => {
-//           console.log(err, status)
-//         })
+  //   getAccountInfo(session, 'chizhikov', (err, account) => {
+  //     createTestInvoice(session, account.address, (err, res) => {
+  //       checkTestInvoice(session, account.address, (err, status) => {
+  //         console.log(err, status)
+  //       })
 
-//         // getInvoice(session, 810)
+  //       // getInvoice(session, 810)
 
-//       })
-//     })
-//   })
+  //     })
+  //   })
+  // })
 // }, 1000)
 
 export default function HomeScreen() {

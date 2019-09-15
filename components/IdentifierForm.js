@@ -86,11 +86,11 @@ const styles = StyleSheet.create({
   identifierText: {
     alignSelf: 'stretch',
     backgroundColor: '#fff',
-    color: 'red',
+    color: '#fff',
     borderColor: 'green',
     backgroundColor: 'transparent',
     borderStyle: 'solid',
-    // fontFamily: 'space-mono',
+    fontFamily: 'space-mono',
     fontSize: 14,
     borderBottomWidth: 1,
     height: 20,

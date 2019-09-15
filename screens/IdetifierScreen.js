@@ -59,7 +59,10 @@ IdetifierScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+
+    // paddingTop: 15,
+    height: '100%',
+    width:'100%',
+    backgroundColor: '#27A5D9',
   },
 });

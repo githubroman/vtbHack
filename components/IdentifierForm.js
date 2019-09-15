@@ -58,7 +58,7 @@ export function IdentifierForm(props) {
           <Button 
             onPress={onPressButton}
             title="OK"
-            color="#5759FF"
+            color="#F2E813"
           />
         </View> 
     </View>
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     width: '100%',
+    height: '100%',
     flexDirection: 'column',
     justifyContent:'space-around',
     alignItems:'center',
@@ -78,6 +79,8 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     alignSelf:'flex-start',
     fontFamily: 'space-mono',
+    color: '#fff',
+    backgroundColor:'#27A5D9',
     marginLeft: 20,
   },
   identifierText: {

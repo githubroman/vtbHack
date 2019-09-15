@@ -135,7 +135,7 @@ const EventScreen = function EventsScreen(props) {
       <ScrollView style={styles.container}>
         {props.event && props.event.products.map((product, i) => <Product key={i} index={i} event={props.event} products={props.event.products} {...product} />)}
       </ScrollView>
-      <View style={{height: 160, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderColor: '#5759FF', padding: 20}}>
+      <View style={{height: 70, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderColor: '#5759FF', padding: 20}}>
         <Text style={{fontSize: 20, color: '#304547'}}>{total} р</Text>
 
         {!activity && payEnable ? 

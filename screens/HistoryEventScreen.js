@@ -10,8 +10,8 @@ const PeopleInfo = (props) => {
       <Text style={{width: '80%', height: 24, padding: 20}}>{props.event.name}</Text>
       <Text style={{width: '80%', height: 24, padding: 20}}>..................</Text>
       <View style={{width: '80%', height: 60, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-        <Text style={{width: 250, height: 24, padding: 20, alignSelf: 'flex-start'}}>{props.event.products.name}</Text>
-        <Text style={{width: 150, height: 24, padding: 20, alignSelf: 'flex-end'}}>count x {props.event.products.price} p</Text>
+        <Text style={{width: 250, height: 24, padding: 20, alignSelf: 'flex-start'}}>{props.event && props.event.products && props.event.products.name}</Text>
+        <Text style={{width: 150, height: 24, padding: 20, alignSelf: 'flex-end'}}>count x {props.event && props.event.products && props.event.products.price} p</Text>
       </View>
       <Text style={{width: '80%', height: 24, padding: 20}}>..................</Text>
       <Text style={{width: '80%', height: 24, padding: 20}}>Всего {props.event.total} p</Text>
@@ -59,7 +59,7 @@ const People = (props) => {
 const HistoryEventScreen = function HistoryEventScreen(props) {
   // const [activity, setActivity] = useState(false);
   const peopleId = getUserId();
-  const total = props.event && props.event.products.reduce((acc, cur) => {
+  const total = props.event && props.event.products && props.event.products.reduce((acc, cur) => {
     if (cur.peoples && cur.peoples.length) {
       const countP = cur.peoples.filter((people) => people == peopleId).length;
       return acc + cur.price / cur.peoples.length * countP;
@@ -71,7 +71,7 @@ const HistoryEventScreen = function HistoryEventScreen(props) {
   return (
     <View style={{flex: 1, justifyContent: 'flex-end'}}>
       <ScrollView style={styles.container}>
-      {<PeopleInfo event={props.event} products={props.event.products} {...product} />}
+      {<PeopleInfo event={props.event} products={props.event && props.event.products} {...product} />}
         {/* {props.event && props.event.products.map((product, i) => <People key={i} index={i} event={props.event} products={props.event.products} {...product} />)} */}
       </ScrollView>
       <View style={{height: 80, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderColor: '#5759FF', padding: 20}}>

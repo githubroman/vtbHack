@@ -118,12 +118,15 @@ const EventScreen = function EventsScreen(props) {
       <ScrollView style={styles.container}>
         {props.event && props.event.products.map((product, i) => <Product key={i} index={i} event={props.event} products={props.event.products} {...product} />)}
       </ScrollView>
-      <View style={{height: 80, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderColor: '#5759FF', padding: 20}}>
+      <View style={{height: 160, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderColor: '#5759FF', padding: 20}}>
         <Text style={{fontSize: 20, color: '#304547'}}>{total} р</Text>
 
         {!activity ? <TouchableOpacity onPress={() => pay(total)} style={{ height: 42, borderRadius: 50, margin: 5, padding: 10, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{color: '#25AA42'}}>Оплатить</Text>
         </TouchableOpacity> : <ActivityIndicator size="large" color="#0000ff" />}
+        <TouchableOpacity onPress={() => props.navigation.navigate('HistoryEvent')} style={{ height: 42, borderRadius: 50, margin: 5, padding: 10, borderColor: '#25AA42', borderWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{color: '#25AA42'}}>История Оплаты</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

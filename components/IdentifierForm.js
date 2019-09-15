@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   headerText: {
     alignContent: 'flex-start',
     alignSelf:'flex-start',
+    fontFamily: 'space-mono',
     marginLeft: 20,
   },
   identifierText: {
